@@ -3,6 +3,7 @@ var path = require('path');
 var bodyParser = require('body-parser');
 
 var events = require('./routes/events');
+var api = require('./routes/events_api');
 
 // var port = 3000;
 
@@ -22,6 +23,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
 app.use('/', events);
+app.use('/api', api);
 
 app.listen(app.get("port"), function() {
     console.log("Server started on port: " + app.get("port"));
