@@ -14,7 +14,8 @@ myMongo.getDb((err, myDb) => {
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    db.zEvents.find((err, data) => {
+    db.zEvents.find().sort({activity_start: 1},
+        (err, data) => {
         if (err) {
             res.send(err);
         }
@@ -22,11 +23,20 @@ router.get('/', function(req, res, next) {
             title: "All Events",
             data: data
         })
-    }) 
+    })
 });
 
 router.get('/create', function(req, res, next) {
-    res.render('create', { title: "Add an Event"});
+    db.zActivities.find().sort({description: 1},
+    (err, data) => {
+        if (err) {
+            res.send(err);
+        }
+        res.render('create',  { 
+            title: "Add an Event",
+            data: data
+        })
+    })     
 })
 
 router.post('/event', function(req, res, next) {
