@@ -1,0 +1,28 @@
+<%- layout('layout.ejs') %>
+<div>
+    <h3><%- title %></h3>
+    <p><a href="/create" class="btn btn-success">Add an Event</a></p>
+    <table class="table table-striped table-condensed">
+        <tr>
+            <th>Activity Name</th>
+            <th>Start Time</th>
+            <th>End Time</td>
+            <th>Active</th>
+            <th>Date Created</th>
+            <th></th>
+        </tr>
+        <% for(var i=0; i<data.length; i++) { %>
+            <tr>
+                <td><%= data[i].activity %></td>
+                <td><%= data[i].activity_start %></td>
+                <td><%= data[i].activity_end %></td>
+                <td><%= data[i].is_active %></td>
+                <td><%= data[i].creation_date %></td>
+                <td>
+                    <a href="/edit/<%= data[i]._id %>" class="btn btn-primary btn-small">Edit</a>
+                    <a href="/delete/<%= data[i]._id %>" class="btn btn-primary btn-small">Delete</a>
+                </td>
+            </tr>
+        <% } %>
+    </table>
+</div>

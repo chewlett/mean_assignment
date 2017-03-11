@@ -1,0 +1,20 @@
+<%- layout('layout') %>
+<div>
+    <h3><%- title %></h3>
+    <h4>Are you sure you want to delete the following activity?</h4>
+    <table>
+        <tr>
+            <td>Activity Name: </td>
+            <td><%= data.activity_name %></td>
+        </tr>
+        <tr>
+            <td>Date Created: </td>
+            <td><%= data.date_created %></td>
+        </tr>
+    </table>
+    <form method="post" action="/delete" >
+        <input type="hidden" name="_id" value="<%= data._id %>" />
+        <input type="submit" value="Delete Activity" class="btn btn-danger"/>
+        <a href="/" class="btn btn-success">Cancel</a>
+    </form>
+</div>

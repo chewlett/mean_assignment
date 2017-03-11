@@ -1,0 +1,155 @@
+use zenith;
+db.dropDatabase();
+use zenith;
+db.createUser({
+    user: "curtis",
+    pwd: "p@ssword",
+    roles: ["readWrite", "dbAdmin"]
+});
+
+
+db.createCollection["zActivities", "zEvents"];
+db.zActivities.insert([
+    {
+	"description": "Senior's Golf Tournament",
+	"creation_date": new Date()
+    },
+    {
+	"description": "Leadership General Assembly Meeting",
+	"creation_date": new Date()
+    },
+    {
+	"description": "Youth Bowling Tournament",
+	"creation_date": new Date()
+    },
+    {
+	"description": "Young Ladies Cooking Lessons",
+	"creation_date": new Date()
+    },
+    {
+	"description": "Youth Craft Lessons",
+	"creation_date": new Date()
+    },
+    {
+	"description": "Lunch",
+	"creation_date": new Date()
+    },
+    {
+	"description": "Youth Choir Lessons",
+	"creation_date": new Date()
+    },
+    {
+	"description": "Pancake Breakfast",
+	"creation_date": new Date()
+    },
+    {
+	"description": "Swimming Lessons for the youth",
+	"creation_date": new Date()
+    },
+    {
+	"description": "Swimming Exercise for parents",
+	"creation_date": new Date()
+    },
+    {
+	"description": "Bingo Tournament",
+	"creation_date": new Date()
+    },
+    {
+	"description": "Garage Sale",
+	"creation_date": new Date()
+    }
+]);
+
+db.zEvents.insert([
+    {
+        "activity": "Senior's Golf Tournament",
+        "activity_start": new Date('2017-03-12T08:30:00'),
+        "activity_end": new Date('2017-03-12T10:30:00'),
+	"is_active": true,
+	"creation_date": new Date()
+    },
+    {
+        "activity": "Leadership General Assembly Meeting",
+        "activity_start": new Date('2017-03-13T08:30:00'),
+        "activity_end": new Date('2017-03-13T10:30:00'),
+	"is_active": true,
+	"creation_date": new Date()
+    },
+    {
+        "activity": "Youth Bowling Tournament",
+        "activity_start": new Date('2017-03-13T17:30:00'),
+        "activity_end": new Date('2017-03-13T19:30:00'),
+	"is_active": true,
+	"creation_date": new Date()
+    },
+    {
+        "activity": "Young Ladies Cooking Lessons",
+        "activity_start": new Date('2017-03-14T19:00:00'),
+        "activity_end": new Date('2017-03-14T20:00:00'),
+	"is_active": true,
+	"creation_date": new Date()
+    },
+    {
+        "activity": "Youth Craft Lessons",
+        "activity_start": new Date('2017-03-15T08:30:00'),
+        "activity_end": new Date('2017-03-15T10:30:00'),
+	"is_active": true,
+	"creation_date": new Date()
+    },
+    {
+        "activity": "Youth Choir Lessons",
+        "activity_start": new Date('2017-03-15T10:30:00'),
+        "activity_end": new Date('2017-03-15T12:00:00'),
+	"is_active": true,
+	"creation_date": new Date()
+    },
+    {
+        "activity": "Lunch",
+        "activity_start": new Date('2017-03-15T12:00:00'),
+        "activity_end": new Date('2017-03-15T13:30:00'),
+	"is_active": true,
+	"creation_date": new Date()
+    },
+    {
+        "activity": "Pancake Breakfast",
+        "activity_start": new Date('2017-03-16T07:30:00'),
+        "activity_end": new Date('2017-03-16T08:30:00'),
+	"is_active": true,
+	"creation_date": new Date()
+    },
+    {
+        "activity": "Swimming Lessons for the youth",
+        "activity_start": new Date('2017-03-16T08:30:00'),
+        "activity_end": new Date('2017-03-16T10:30:00'),
+	"is_active": false,
+	"creation_date": new Date()
+    },
+    {
+        "activity": "Swimming Exercise for parents",
+        "activity_start": new Date('2017-03-17T08:30:00'),
+        "activity_end": new Date('2017-03-17T10:30:00'),
+	"is_active": true,
+	"creation_date": new Date()
+    },
+    {
+        "activity": "Bingo Tournament",
+        "activity_start": new Date('2017-03-18T10:30:00'),
+        "activity_end": new Date('2017-03-18T12:00:00'),
+	"is_active": true,
+	"creation_date": new Date()
+    },
+    {
+        "activity": "Lunch",
+        "activity_start": new Date('2017-03-18T12:00:00'),
+        "activity_end": new Date('2017-03-08T13:00:00'),
+	"is_active": false,
+	"creation_date": new Date()
+    },
+    {
+        "activity": "Garage Sale",
+        "activity_start": new Date('2017-03-18T13:00:00'),
+        "activity_end": new Date('2017-03-18T18:00:00'),
+	"is_active": true,
+	"creation_date": new Date()
+    }
+]);

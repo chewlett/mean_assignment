@@ -1,0 +1,17 @@
+<%- layout('layout') %>
+<div>
+    <h3><%- title %></h3>
+    <div class="row">
+    <form action="/edit" method="post" class="col-xs-6">
+        <input type="hidden" name="_id" value="<%= data._id %>" />
+        <input type="hidden" name="date_created" value="<%= data.date_created %>" />
+        <div class="form-group">
+            <label for="activity_name">Activity Name:</label>
+            <input name="activity_name" value="<%= data.activity_name %>" 
+            class="form-control"/>
+        </div>
+        <input type="submit" value="Edit Activity" class="btn btn-success" />
+        <a href="/" class="btn btn-success">Cancel</a>
+    </form>
+    </div>
+</div>

@@ -1,0 +1,11 @@
+<%- layout('layout') %>
+<div>
+    <h3><%- title %></h3>
+    <form class="form-inline" method="post" action="/event">
+        <div class="form-group">
+            <input name="activity" placeholder="Activity Name" class="form-control" />
+        </div>
+        <input type="submit" value="Add Activity" class="btn btn-success" />
+        <a href="/" class="btn btn-success">Cancel</a>
+    </form>
+</div>
