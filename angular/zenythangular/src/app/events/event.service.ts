@@ -25,7 +25,7 @@ export class EventService {
   * Url will need updating
   */
   getAllEvents() {
-    let url = this.eventsUrl + 'allevents';
+    let url = this.eventsUrl + 'events';
 
     return this._http.get(url)
       .map(this.extractData)

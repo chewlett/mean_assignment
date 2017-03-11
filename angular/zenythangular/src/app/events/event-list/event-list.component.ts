@@ -5,7 +5,8 @@ import { Event } from '../event';
 @Component({
   selector: 'app-event-list',
   templateUrl: './event-list.component.html',
-  styleUrls: ['./event-list.component.css']
+  styleUrls: ['./event-list.component.css'],
+  providers: [EventService]
 })
 export class EventListComponent implements OnInit {
   events: Event[];
@@ -18,7 +19,8 @@ export class EventListComponent implements OnInit {
       // Success
       data => {
         console.log(data);
-        this.listOfEvents = data;
+        // this.listOfEvents = data;
+        this.events = data.map(event);
       },
       error => {
         alert(error);
