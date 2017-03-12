@@ -40,13 +40,14 @@ router.get('/create', function(req, res, next) {
 })
 
 router.post('/event', function(req, res, next) {
+    // 2017-03-12T10:30:00
     var event = req.body;
     var error = "";
     if (!event.activity) {        
         error += "Need to put event name; ";
     }
-    if (!event.activity_start) {
-        error += "Need to put event start time; ";
+    if (!event.day || !event.month || !event.year) {
+        error += "Need to put an event date; ";
     }
     if (!event.activity_end) {
         error += "Need to put event end time; ";
