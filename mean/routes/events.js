@@ -40,24 +40,59 @@ router.get('/create', function(req, res, next) {
 })
 
 router.post('/event', function(req, res, next) {
+    var startString;
+    var endString;
     var event = req.body;
     var error = "";
     if (!event.activity) {        
         error += "Need to put event name; ";
     }
-    if (!event.activity_start) {
-        error += "Need to put event start time; ";
+    if (!event.day || !event.month || !event.year) {
+        error += "Need to put an event date; ";        
     }
-    if (!event.activity_end) {
+    else {
+        var dateString = event.year + "-" + event.month + "-" + event.day + "T"
+        startString = dateString;
+        endString = dateString; 
+    }
+    if (!event.startHour || !event.startMinutes) {
         error += "Need to put event end time; ";
     }
+    else {
+        startString += event.startHour + ":" + event.startMinutes + ":00"
+    }
+    if (!event.endHour || !event.endMinutes) {
+        error += "Need to put event end time; ";
+    }
+    else {
+        endString += event.endHour + ":" + event.endMinutes + ":00"
+    }    
+
     if (error != "") {
         res.status(400);
         res.send("Data error, could not add event: " + error);
     }
     else {
-        event.creation_date = new Date();
-        db.zEvents.save(event, (err, data) => {
+        var newEvent = {};
+        if (event.active) {
+            newEvent.is_active = true;
+        }
+        else  {newEvent.is_active = false; }
+        newEvent.activity = event.activity;    
+        newEvent.creation_date = new Date();
+        newEvent.activity_start = new Date(
+            parseInt(event.year), 
+            parseInt(event.month)-1, 
+            parseInt(event.day), 
+            parseInt(event.startHour),
+            parseInt(event.startMinutes));
+        newEvent.activity_end = new Date(
+            parseInt(event.year), 
+            parseInt(event.month)-1, 
+            parseInt(event.day), 
+            parseInt(event.endHour),
+            parseInt(event.endMinutes));        
+        db.zEvents.save(newEvent, (err, data) => {
             if (err) {
                 res.status(400);
                 res.send("Data error, could not add event");
@@ -66,6 +101,7 @@ router.post('/event', function(req, res, next) {
         })
     }
 })
+
 router.get('/edit/:id', function(req, res, next) {
     db.zEvents.findOne( {_id: mongojs.ObjectId(req.params.id)},
         function(err, data) {
