@@ -40,8 +40,6 @@ router.get('/create', function(req, res, next) {
 })
 
 router.post('/event', function(req, res, next) {
-    var startString;
-    var endString;
     var event = req.body;
     var error = "";
     if (!event.activity) {        
@@ -50,24 +48,12 @@ router.post('/event', function(req, res, next) {
     if (!event.day || !event.month || !event.year) {
         error += "Need to put an event date; ";        
     }
-    else {
-        var dateString = event.year + "-" + event.month + "-" + event.day + "T"
-        startString = dateString;
-        endString = dateString; 
-    }
     if (!event.startHour || !event.startMinutes) {
-        error += "Need to put event end time; ";
-    }
-    else {
-        startString += event.startHour + ":" + event.startMinutes + ":00"
+        error += "Need to put event start time; ";
     }
     if (!event.endHour || !event.endMinutes) {
         error += "Need to put event end time; ";
-    }
-    else {
-        endString += event.endHour + ":" + event.endMinutes + ":00"
-    }    
-
+    }  
     if (error != "") {
         res.status(400);
         res.send("Data error, could not add event: " + error);
@@ -125,36 +111,56 @@ router.get('/edit/:id', function(req, res, next) {
 })
 router.post('/edit', function(req, res, next) {
     var event = req.body;
-    var changedEvent = {};
-    changedEvent.creation_date = event.creation_date;
     var error = "";
-    if (event.activity) {
-        changedEvent.activity = event.activity;
+    if (!event.activity) {        
+        error += "Need to put event name; ";
     }
-    else { error += "Need to put event name; "; }
-    if (event.activity_start) {
-        changedEvent.activity_start = event.activity_start
+    if (!event.day || !event.month || !event.year) {
+        error += "Need to put an event date; ";        
     }
-    else { error += "Need an envent start time; "}
-    if (event.activity_end) {
-        changedEvent.activity_end = event.activity_end
+    if (!event.startHour || !event.startMinutes) {
+        error += "Need to put event start time; ";
     }
-    else { error += "Need an envent end time; "}
-    if (!event.is_active) {
-        changedEvent.is_active = false
-    }
-
+    if (!event.endHour || !event.endMinutes) {
+        error += "Need to put event end time; ";
+    }  
     if (error != "") {
         res.status(400);
-        res.send("Data error, could not add event: " + error);
+        res.send("Data error, could not update event: " + error);
     }
-    db.activities.update({_id: mongojs.ObjectId(event._id)},
-        changedEvent, {}, (err, data) => {
-            if (err) {
-                res.send(err);
-            }
-            res.redirect('/');
-        })    
+    else {
+        var changedEvent = {};
+        if (!event.creation_date) {
+            changedEvent.creation_date = new Date();
+        }
+        else {
+            changedEvent.creation_date = event.creation_date;
+        }        
+        if (event.active) {
+            changedEvent.is_active = true;
+        }
+        else  {changedEvent.is_active = false; }
+        changedEvent.activity = event.activity;    
+        changedEvent.activity_start = new Date(
+            parseInt(event.year), 
+            parseInt(event.month)-1, 
+            parseInt(event.day), 
+            parseInt(event.startHour),
+            parseInt(event.startMinutes));
+        changedEvent.activity_end = new Date(
+            parseInt(event.year), 
+            parseInt(event.month)-1, 
+            parseInt(event.day), 
+            parseInt(event.endHour),
+            parseInt(event.endMinutes));        
+        db.zEvents.update({_id: mongojs.ObjectId(event._id)},
+            changedEvent, {}, (err, data) => {
+                if (err) {
+                    res.send(err);
+                }
+                res.redirect('/');
+            });    
+    }
 })
 router.get('/delete/:id', function(req, res, next) {
       db.zEvents.findOne( {_id: mongojs.ObjectId(req.params.id)},
