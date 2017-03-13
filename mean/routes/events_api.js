@@ -11,7 +11,11 @@ myMongo.getDb((err, myDb) => {
         db = myDb;
     }
 });
-
+router.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 // list all activities
 router.get('/events', function(req, res, next) {
     db.zEvents.find().sort({activity_start: 1},
@@ -23,6 +27,5 @@ router.get('/events', function(req, res, next) {
         res.send(data);
     })
 });
-
 
 module.exports = router;

@@ -103,16 +103,25 @@ router.post('/event', function(req, res, next) {
 })
 
 router.get('/edit/:id', function(req, res, next) {
-    db.zEvents.findOne( {_id: mongojs.ObjectId(req.params.id)},
-        function(err, data) {
+    var activities = [];
+    db.zActivities.find().sort({description: 1},
+        (err, data) => {
             if (err) {
                 res.send(err);
             }
+            activities = data;
+            db.zEvents.findOne( {_id: mongojs.ObjectId(req.params.id)},
+            (err2, data2) => {
+            if (err2) {
+                res.send(err2);
+            }
             res.render('edit', {
                 title: "Edit Event",
-                data: data
+                activities: activities,
+                data: data2
             })
         })
+        })  
 })
 router.post('/edit', function(req, res, next) {
     var event = req.body;
