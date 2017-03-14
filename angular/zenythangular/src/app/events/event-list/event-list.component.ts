@@ -7,11 +7,8 @@ import { MomentModule } from 'angular2-moment/moment.module';
 @Component({
   selector: 'app-event-list',
   templateUrl: './event-list.component.html',
-  // styleUrls: ['./event-list.component.css'],
-  styles: [`
-        :host {
-          display: block;
-        }`],
+  styleUrls: ['./event-list.component.css'],
+
   providers: [EventService]
 })
 export class EventListComponent implements OnInit {
@@ -57,13 +54,7 @@ export class EventListComponent implements OnInit {
   }
 
   setDisplayEvents(thisWeeksEvents) {
-    // let currentDay = parseInt(new Date(thisWeeksEvents[0].activity_start.getDay()).toString());
-    // let eventCounter = 0;
-    // let daysOfTheWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-    // let dayOfWeek: String;
-    // let dayOfMonth: String;
-    // let month: String;
-    // let year: String;
+
     var dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
     var timeOptions = { minute: 'numeric', hour: 'numeric' };
 
@@ -95,7 +86,14 @@ export class EventListComponent implements OnInit {
         dateTableRow.activity_long_date = thisActivity.activity_long_date;
         this.events_to_display.push(dateTableRow);
       }
-      this.events_to_display.push(thisActivity);
+
+      /**
+       * Check event is active 
+       * if active, push current event to events_to_display
+       */
+      if (thisWeeksEvents[index].is_active) {
+        this.events_to_display.push(thisActivity);
+      }
 
     }
 
