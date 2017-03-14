@@ -1,0 +1,13 @@
+dd {
+    float: left;
+    margin-left: 2em;
+}
+dt {
+    float: left;
+    clear: both;
+    width: 125px;
+    text-align: right;
+}
+dl {
+    overflow: hidden;
+}

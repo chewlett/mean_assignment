@@ -2,6 +2,8 @@
 <div>
     <h3><%- title %></h3>
     <form class="form" method="post" action="/edit">
+        <input type="hidden" name="_id" value="<%- data._id %>" />
+        <input type="hidden" name="creation_date" value="<%- data.creation_date %>" />
         <div class="form-group">
             <label for="activity">Activity</label>
             <select id="activity" name="activity">
@@ -67,20 +69,33 @@
             <select id="startHour" name="startHour">
                 <option></option>
             <% for (var i = 0; i <= 23; i++) { %>
-                <% of
-                <% if (i < 10) { %>                
-                <option>0<%- i %></option>
-                <% } else { %>
-                <option><%- i %></option>
-            <% }} %>
+                <% if (data.activity_start.getHours() == i) { %>
+                    <% if (i < 10) { %>                
+                    <option selected="selected">0<%- i %></option>
+                    <% } else { %>
+                    <option selected="selected"><%- i %></option>                
+                <% }} else { %>
+                    <% if (i < 10) { %>                
+                    <option>0<%- i %></option>
+                    <% } else { %>
+                    <option><%- i %></option>                
+            <% }}} %>
             </select>
             <span> : </span>
             <label for="startMinutes">mm</label>
             <select id="startMinutes" name="startMinutes">
-                <option>00</option>
-                <option>15</option>
-                <option>30</option>
-                <option>45</option>
+            <% for (let i = 0; i <= 45; i += 15) { 
+               if (i == data.activity_start.getMinutes()) { 
+                   if (i == 0) { %>
+                        <option selected="selected">0<%- i%></option>
+                    <% } else { %>
+                        <option selected="selected"><%- i%></option>                    
+               <% }} else { 
+                   if (i == 0) { %>
+                        <option>0<%- i%></option>
+                    <% } else { %>
+                        <option><%- i%></option>
+            <% }}} %>
             </select>
         </div>
         <div class="form-group">
@@ -89,26 +104,44 @@
             <select id="endHour" name="endHour">
                 <option></option>
             <% for (var i = 1; i <= 24; i++) { %>
-                <% if (i < 10) { %>                
-                <option>0<%- i %></option>
-                <% } else { %>
-                <option><%- i %></option>
-            <% }} %>
+                <% if (data.activity_end.getHours() == i) { %>
+                    <% if (i < 10) { %>                
+                    <option selected="selected">0<%- i %></option>
+                    <% } else { %>
+                    <option selected="selected"><%- i %></option>                
+                <% }} else { %>
+                    <% if (i < 10) { %>                
+                    <option>0<%- i %></option>
+                    <% } else { %>
+                    <option><%- i %></option>   
+            <% }}} %>
             </select>
             <span> : </span>
             <label for="endMinutes">mm</label>
             <select id="endMinutes" name="endMinutes">
-                <option>00</option>
-                <option>15</option>
-                <option>30</option>
-                <option>45</option>
+            <% for (let i = 0; i <= 45; i += 15) { 
+               if (i == data.activity_end.getMinutes()) { 
+                   if (i == 0) { %>
+                        <option selected="selected">0<%- i%></option>
+                    <% } else { %>
+                        <option selected="selected"><%- i%></option>                    
+               <% }} else { 
+                   if (i == 0) { %>
+                        <option>0<%- i%></option>
+                    <% } else { %>
+                        <option><%- i%></option>
+            <% }}} %>
             </select>
         </div>
         <div class="form=group">
             <label for="active">Active?</label>
-            <input type="checkbox" id="active" name="active" />
+            <% if (data.is_active) { %>
+                <input checked="checked" type="checkbox" id="active" name="active" />
+            <% } else { %>
+                <input type="checkbox" id="active" name="active" />
+            <% } %>
         </div>
-        <input type="submit" value="Add Activity" class="btn btn-success" />
+        <input type="submit" value="Update Activity" class="btn btn-success" />
         <a href="/" class="btn btn-success">Cancel</a>
     </form>
 </div>
