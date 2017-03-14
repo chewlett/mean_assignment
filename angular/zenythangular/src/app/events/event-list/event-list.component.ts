@@ -12,20 +12,22 @@ import { MomentModule } from 'angular2-moment/moment.module';
   providers: [EventService]
 })
 export class EventListComponent implements OnInit {
-  events: Event[];
   events_to_display: Displayevent[];
-  // listOfEvents: Object;
 
   constructor(private _eventService: EventService, private _moment: MomentModule) { }
 
   ngOnInit() {
+    //instantiate events_to_display Array
     this.events_to_display = new Array();
 
+    /**
+     * Observable: requests information from API
+     * Recieves this weeks events
+     */
     this._eventService.getAllEvents().subscribe(
       // Success
       data => {
-        this.events = data;
-        console.log('Events:');
+        console.log('data');
 
         /**
          * Call local function
