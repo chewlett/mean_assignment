@@ -26,7 +26,12 @@ export class EventListComponent implements OnInit {
       data => {
         this.events = data;
         console.log('Events:');
-        this.setDisplayEvents(data)
+
+        /**
+         * Call local function
+         * Iterates through JSON and applies logic as necessary. 
+         */
+        this.setDisplayEvents(data);
       },
       error => {
         alert(error);
