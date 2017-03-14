@@ -25,7 +25,7 @@ export class EventService {
   * Url will need updating
   */
   getAllEvents() {
-    let url = this.eventsUrl + 'events';
+    let url = this.eventsUrl + 'weekevents';
     // let url = 'http://localhost:3000/api/events';
 
 
