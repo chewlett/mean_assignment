@@ -8,7 +8,7 @@ import 'rxjs/add/observable/throw';
 
 @Injectable()
 export class EventService {
-  private eventsUrl = '/api/';
+  private eventsUrl = 'http://localhost:3000/api/';
 
   constructor(private _http: Http) { }
 
@@ -26,6 +26,8 @@ export class EventService {
   */
   getAllEvents() {
     let url = this.eventsUrl + 'events';
+    // let url = 'http://localhost:3000/api/events';
+
 
     return this._http.get(url)
       .map(this.extractData)

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { EventService } from '../event.service';
 import { Event } from '../event';
+import {MomentModule} from 'angular2-moment/moment.module';
 
 @Component({
   selector: 'app-event-list',
@@ -10,17 +11,26 @@ import { Event } from '../event';
 })
 export class EventListComponent implements OnInit {
   events: Event[];
-  listOfEvents: Object;
+  startOfWeek: Date;
+  endOfWeek:   Date;
+  // listOfEvents: Object;
 
-  constructor(private _eventService: EventService) { }
+  constructor(private _eventService: EventService, private _moment: MomentModule) { }
 
   ngOnInit() {
     this._eventService.getAllEvents().subscribe(
       // Success
-      data => {
-        console.log(data);
-        // this.listOfEvents = data;
-        this.events = data.map(event);
+      (data: Event[]) => {
+        this.events = data;
+
+        // this.events = data.map(event);
+        console.log('Events:');
+        console.log(this.events);
+        console.log(new Date().toLocaleString('en-us', {  weekday: 'long', month: 'long' }));
+
+        console.log(new Date().toLocaleString());
+
+
       },
       error => {
         alert(error);
@@ -29,6 +39,14 @@ export class EventListComponent implements OnInit {
         console.log("SUBSCRIPTION FINISHED: get all events")
       }
     );
+
+    // this.startOfWeek = moment()
+
+
+  }
+
+  setCurrentWeek() {
+    var today = new Date();
   }
 
 }
