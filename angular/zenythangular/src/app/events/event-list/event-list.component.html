@@ -1,3 +1,13 @@
-<p>
-  event-list works!
-</p>
+<div class="table_container">
+  <table class="table">
+    <tbody>
+      <tr *ngFor="let event of events_to_display">
+        <!--display day header-->
+        <td *ngIf="!event.is_activity" colspan="2" class="date_row">{{event.activity_long_date}} </td>
+        <!--display activity-->
+        <td *ngIf="event.is_activity" class="">{{event.activity_start}} - {{event.activity_end}}</td>
+        <td *ngIf="event.is_activity">{{event.activity}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
