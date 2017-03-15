@@ -8,7 +8,8 @@ import 'rxjs/add/observable/throw';
 
 @Injectable()
 export class EventService {
-  private eventsUrl = 'http://localhost:3000/api/';
+  // private eventsUrl = 'http://localhost:3000/api/';
+    private eventsUrl = 'https://young-taiga-13576.herokuapp.com/';
 
   constructor(private _http: Http) { }
 
@@ -18,22 +19,18 @@ export class EventService {
  * 
  ***********************************************/
 
-
   /*
   * Function: GET all events
   * get("/api/allevents")
   * Url will need updating
   */
   getAllEvents() {
-    let url = this.eventsUrl + 'weekevents';
-    // let url = 'http://localhost:3000/api/events';
-
+    let url = this.eventsUrl + 'api/weekevents';
 
     return this._http.get(url)
       .map(this.extractData)
       .catch(this.handleError);
   }
-
 
   /***********************************************
   * handleError
