@@ -19,7 +19,7 @@ router.get('/', function(req, res, next) {
         if (err) {
             res.send(err);
         }
-        res.render('index',  { 
+        res.render('index',  {             
             title: "All Events",
             data: data
         })
@@ -56,7 +56,10 @@ router.post('/event', function(req, res, next) {
     }  
     if (error != "") {
         res.status(400);
-        res.send("Data error, could not add event: " + error);
+        res.render('error', {
+            title: "ERROR!!!",
+            error: "Data error, could not add event: " + error
+        });
     }
     else {
         var newEvent = {};
@@ -126,7 +129,10 @@ router.post('/edit', function(req, res, next) {
     }  
     if (error != "") {
         res.status(400);
-        res.send("Data error, could not update event: " + error);
+        res.render('error', {
+            title: "ERROR!!!",
+            error: "Data error, could not update event: " + error
+        });
     }
     else {
         var changedEvent = {};
